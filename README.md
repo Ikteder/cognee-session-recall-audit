@@ -57,7 +57,7 @@ tests/
   test_skill_gate_matrix.py The matrix as a pytest suite
 .github/workflows/audit.yml  CI for the offline legs plus a package build check
 pyproject.toml
-LICENSE                      MIT, with an explicit note about the vendored rule set
+LICENSE                      Apache 2.0, with an attribution note for the vendored rule set
 ```
 
 ## Install
@@ -270,8 +270,11 @@ usable as an integration check for anyone self-hosting session memory.
 
 ## License
 
-MIT. Cognee itself is Apache 2.0; this kit imports its public interfaces only. `skill_gate_ref.py` is a
-short verbatim copy of one upstream rule set, kept under the same terms as cognee and marked with the
-version it mirrors, so anyone can diff it against the original. The LICENSE file records that split.
+Apache License 2.0. Cognee itself is also Apache 2.0, and this kit imports its public interfaces only.
+`skill_gate_ref.py` is a short vendored derivative of one upstream rule set (`cognee/modules/search/operations/skill_gate.py`),
+kept under the same Apache 2.0 terms and marked with the upstream version it mirrors, so anyone can diff
+it against the original. The LICENSE file carries the full license text plus that attribution note.
+
+SPDX-License-Identifier: `Apache-2.0`
 
 Cognee (topoteretes/cognee) is not affiliated with this kit and does not endorse it.

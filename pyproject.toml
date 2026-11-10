@@ -8,10 +8,22 @@ version = "0.1.0"
 description = "Offline audit kit that measures whether cognee's session memory actually changes retrieval, and whether distilled lessons stay traceable to their source turns."
 readme = "README.md"
 requires-python = ">=3.10"
-license = "MIT"
+license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [{ name = "Ikteder" }]
 keywords = ["cognee", "agent-memory", "regression-testing", "retrieval", "audit"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development :: Testing",
+  "Operating System :: OS Independent",
+]
 
 # No runtime dependency on cognee: the probes are callable-injected and the skill gate reference
 # copy is vendored. Install cognee separately to measure a real install with tools/audit_live.py.

@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Skill gate matrix as a test.
 
 Runs against a real cognee install when one is importable, and against the pinned local copy of the

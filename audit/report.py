@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Structured audit results and a plain-text summary.
 
 Kept separate from the probes so the measurement code has no printing concerns and the report can

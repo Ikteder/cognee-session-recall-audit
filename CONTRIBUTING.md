@@ -40,3 +40,10 @@ errored probe and a zero-lift measurement look similar in a screenshot but mean 
 This kit measures retrieval changes and lesson traceability. It is not a memory framework, not a cognee
 fork, and not a benchmark suite for LLM quality. Features outside those two probes are more likely to be
 pointed at an upstream issue than merged here.
+
+## License
+
+This project is licensed under the Apache License, Version 2.0. Contributions are accepted under the same
+terms: anything you submit here ships as Apache 2.0 and carries an `SPDX-License-Identifier: Apache-2.0`
+header line. Vendored upstream code keeps the license of its source, must name the file and version it
+mirrors, and is called out in the LICENSE attribution note.

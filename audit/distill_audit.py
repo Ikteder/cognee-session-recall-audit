@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Distillation coverage audit.
 
 ``cognee.session.distill_session()`` curates session turns into lessons and then hands them to a

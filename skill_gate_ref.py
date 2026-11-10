@@ -7,6 +7,10 @@ version line below records what it mirrors.
 
 Mirrored: cognee main branch, skill gate as of 2026-11 (procedural rule set with same-clause
 negation suppression).
+
+Copyright (c) 2026 Ikteder. Portions derived from topoteretes/cognee, Copyright the cognee authors,
+both licensed under the Apache License, Version 2.0. See LICENSE at the repository root.
+SPDX-License-Identifier: Apache-2.0
 """
 
 from __future__ import annotations

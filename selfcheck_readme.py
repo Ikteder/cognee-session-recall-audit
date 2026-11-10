@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Smoke check: the README example runs against stand-ins, no cognee needed.
 
 Kept as a script rather than a test so the published example stays honest without making the suite

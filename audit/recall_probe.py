@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Session-lift probe: measure what cognee's session layer adds to retrieval.
 
 The probe calls the real :func:`cognee.recall` with ``only_context=True``. That mode returns the

@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Audit the live cognee install: real recall, real session store, no LLM generation.
 
 Requires a working cognee configuration (database plus embedding provider) and network access if

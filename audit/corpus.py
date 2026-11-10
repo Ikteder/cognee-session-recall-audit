@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Fixture corpus: a small ops knowledge base plus one session that leans on it.
 
 Everything here is fixed text so the audit numbers are reproducible across machines and runs. The

@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Self-check for the audit kit.
 
 Runs without cognee installed. The two probes are exercised against stand-in recall and curation

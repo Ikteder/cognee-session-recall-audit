@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Run the skill gate query matrix against a real cognee install, or the vendored reference.
 
 Usage::

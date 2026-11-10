@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Ikteder
+# SPDX-License-Identifier: Apache-2.0
 """Offline measurement harness for the two probes, without cognee installed.
 
 The probes are written against documented API shapes and this harness feeds them those shapes, so
