@@ -10,6 +10,19 @@ instead of a demo:
 Both probes are deterministic and run **offline: no API key, no model download, no database**. The
 full suite runs on a bare Python install in about a second.
 
+![Audit suite](https://github.com/Ikteder/cognee-session-recall-audit/actions/workflows/audit.yml/badge.svg)
+
+## At a glance
+
+| | |
+| --- | --- |
+| Runtime dependencies | none (stdlib only) |
+| LLM or embedding calls | zero, every probe uses `only_context=True` |
+| Test time | ~0.03s offline (`pytest`: 36 passed, 1 skipped) |
+| Python | 3.10 to 3.14, verified in CI across all five |
+| Install | `pip install .` (wheel plus sdist), then `from audit import measure_session_lift` |
+| Needs a cognee checkout | only for the live measurement legs, not for the suite |
+
 ## The gap this fills
 
 cognee ships session memory with examples that demonstrate it end to end (`examples/guides/sessions.py`,
@@ -33,6 +46,7 @@ audit/
   corpus.py          Deterministic fixture corpus (ops runbook chunks, session turns, lessons)
   report.py          Structured results, verdict rules, plain-text table
 selfcheck.py         Standalone verification of the measurement code, no cognee needed
+selfcheck_readme.py  Runs the README example against stand-ins so the docs stay honest
 skill_gate_ref.py    Pinned copy of the upstream skill gate rule set
 tools/
   skill_gate_cases.json   Query matrix for the procedural skill gate (17 rows)
@@ -41,12 +55,32 @@ tools/
 tests/
   test_offline_probes.py    Probes, fixtures and verdict rules
   test_skill_gate_matrix.py The matrix as a pytest suite
+.github/workflows/audit.yml  CI for the offline legs plus a package build check
 pyproject.toml
+LICENSE                      MIT, with an explicit note about the vendored rule set
 ```
+
+## Install
+
+```bash
+git clone https://github.com/Ikteder/cognee-session-recall-audit.git
+cd cognee-session-recall-audit
+pip install .            # installs the audit package only; still no dependencies
+pip install ".[test]"    # adds pytest if you want to run the suite
+```
+
+Nothing in this kit pulls in cognee, an LLM provider SDK, or a model. The `audit` package is pure
+stdlib, and cognee is reached through public interfaces at call time when you point the probes at it.
 
 ## Quickstart
 
 Three entry points, from "no dependencies at all" to "measuring a real install".
+
+```bash
+python -m selfcheck        # verify the kit itself, no cognee required
+python -m pytest -q        # 36 passed, 1 skipped, offline
+python tools/audit_skill_gate.py   # skill gate matrix, exits 0 when only labeled issues remain
+```
 
 ### 1. Verify the kit itself (no cognee, no network)
 
@@ -66,8 +100,8 @@ pip install pytest
 python -m pytest -q
 ```
 
-Expected: `35 passed, 1 skipped` (36 collected). The skip is the guard that only runs when a real
-cognee install is importable (see *Two gates, kept separate* below).
+Expected: `36 passed, 1 skipped`. The skip is the guard that only runs when a real cognee install is
+importable (see *Two gates, kept separate* below).
 
 ### 3. Measure a real cognee install
 
@@ -185,6 +219,33 @@ a maintainer or an integrator three cheap offline checks that belong next to an 
 They are small and deterministic on purpose: no fixtures to regenerate, no golden files to re-bless,
 no provider quota to burn.
 
+## Using it as a library
+
+```python
+import asyncio
+
+import cognee
+from audit import AuditReport, audit_curated_lessons, format_report, measure_session_lift
+
+async def main() -> None:
+    lift = await measure_session_lift(
+        recall=cognee.recall,
+        queries=["how do I rotate the staging deploy key", "restart the docker daemon"],
+        session_id="incident-4417",
+    )
+    turns = [(message.role, message.content) for message in await cognee.session_get_messages("incident-4417")]
+    distillation = audit_curated_lessons(lessons=curated_lessons, turns=turns)  # your curation output
+    report = AuditReport(lift=lift, distillation=distillation)
+    print(format_report(report))               # human readable table
+    assert report.ok, report.probe_errors      # numeric verdict for CI
+
+asyncio.run(main())
+```
+
+`measure_session_lift` is async and takes any callable matching `recall(query_text=..., **kwargs)`, so
+it works with cognee today and with any other memory backend that can return a retrieval context. The
+distillation audit is pure data in, data out: no calls at all.
+
 ## Requirements
 
 Python 3.10 to 3.14. The offline path has **no runtime dependencies at all**; `pytest` is used by the
@@ -211,4 +272,6 @@ usable as an integration check for anyone self-hosting session memory.
 
 MIT. Cognee itself is Apache 2.0; this kit imports its public interfaces only. `skill_gate_ref.py` is a
 short verbatim copy of one upstream rule set, kept under the same terms as cognee and marked with the
-version it mirrors, so anyone can diff it against the original.
+version it mirrors, so anyone can diff it against the original. The LICENSE file records that split.
+
+Cognee (topoteretes/cognee) is not affiliated with this kit and does not endorse it.
