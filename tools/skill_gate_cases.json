@@ -1,0 +1,22 @@
+{
+  "description": "Query matrix for cognee's procedural skill gate (cognee/api/v1/recall/skill_gate.py). Each row pins the expected fired outcome. Rows marked known_failure reproduce a documented upstream bug and are reported as known, not as test failures.",
+  "cases": [
+    {"query": "how do I fix it?", "expected": true, "note": "plain procedural request"},
+    {"query": "walk me through the deploy", "expected": true, "note": "procedural phrase without a question mark"},
+    {"query": "step-by-step fix?", "expected": true, "note": "English step-by-step rule, weight 2"},
+    {"query": "don't walk me through it", "expected": false, "note": "same-clause negation must suppress"},
+    {"query": "I can't set up the cluster", "expected": false, "note": "same-clause negation must suppress"},
+    {"query": "no idea how to deploy", "expected": false, "note": "out of scope for the clause fix; same-clause negation"},
+    {"query": "what is Kubernetes?", "expected": false, "note": "declarative question, no procedural signal"},
+    {"query": "Docker won't start, how do I fix it?", "expected": true, "known_failure": "5647", "note": "negation sits in an earlier clause and must not suppress"},
+    {"query": "Build is not passing. How do I fix it?", "expected": true, "known_failure": "5647", "note": "sentence break should end the negation's reach"},
+    {"query": "Redis isn't reachable; how do we recover?", "expected": true, "known_failure": "5647", "note": "semicolon clause break"},
+    {"query": "Login is not working - how to reset it?", "expected": true, "known_failure": "5647", "note": "spaced dash clause break"},
+    {"query": "Pods are not ready. Step-by-step fix?", "expected": true, "known_failure": "5647", "note": "sentence break before the procedural match"},
+    {"query": "怎么排查？", "expected": true, "note": "Chinese procedural rule fires on its own"},
+    {"query": "如何部署？", "expected": true, "note": "Chinese procedural rule, weight 1"},
+    {"query": "服务启动不了，怎么排查？", "expected": true, "known_failure": "5647", "note": "matches upstream behavior (the 不 marker does not cover 不了), so it is expected rather than a live leak; kept to pin the boundary of the negation pattern"},
+    {"query": "部署失败了，不能访问，怎么配置回滚？", "expected": true, "known_failure": "5647", "note": "live leak: 不能 is an all-scope marker upstream, so it cancels the procedural match in a later clause"},
+    {"query": "不要带我一步步操作", "expected": false, "note": "Chinese negation in the same clause must suppress"}
+  ]
+}

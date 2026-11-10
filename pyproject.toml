@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cognee-session-recall-audit"
+version = "0.1.0"
+description = "Offline audit kit that measures whether cognee's session memory actually changes retrieval, and whether distilled lessons stay traceable to their source turns."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Ikteder" }]
+keywords = ["cognee", "agent-memory", "regression-testing", "retrieval", "audit"]
+
+# No runtime dependency on cognee: the probes are callable-injected and the skill gate reference
+# copy is vendored. Install cognee separately to measure a real install with tools/audit_live.py.
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.setuptools]
+packages = ["audit"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
